@@ -300,7 +300,8 @@ function runTests (solc, versionText) {
         // "You shall not have another CompilerStack aside me".
         const output = JSON.parse(solc.lowlevel.compileCallback(JSON.stringify({ sources: { 'a.sol': 'contract A { function f() public {} }' } }), 0));
         st.ok(output.contracts, 'compilation returns contracts after a callback exception');
-        st.ok(output.contracts['a.sol'] && output.contracts['a.sol'].A, 'expected contract is present');
+        const bytecode = getBytecode(output, 'a.sol', 'A');
+        st.ok(typeof bytecode === 'string' && bytecode.length > 0, 'expected contract is present');
         st.end();
       });
 
