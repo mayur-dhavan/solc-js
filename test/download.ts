@@ -71,7 +71,7 @@ tape('loadRemoteVersion retries', function (t) {
       st.error(err, 'no error');
       st.equal(attempts.count, 3, 'three attempts');
       st.equal(attempts.drained, 2, 'failed responses drained');
-      st.ok(solcSnapshot && /^0\.8\.38/.test(solcSnapshot.version()), 'working compiler returned');
+      st.equal(solcSnapshot && solcSnapshot.version(), (solc as any).version(), 'working compiler returned');
       st.end();
     });
   });
